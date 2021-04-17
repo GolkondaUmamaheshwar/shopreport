@@ -1,0 +1,117 @@
+<mvc:View
+    controllerName="ux.shopproducts.controller.Shop"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m">
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page" title="{i18n>title}">
+
+                  <Table id="ProductsTable"
+		            inset="false"
+                        items="{/Products}">
+                        	<headerToolbar>
+			<OverflowToolbar>
+				<content>
+					<Title text="Products" level="H2"/>
+					<ToolbarSpacer />
+					<ComboBox id="idPopinLayout"
+						placeholder="Popin layout options"
+						change="onPopinLayoutChanged">
+						<items>
+							<core:Item  text="Block"
+								key="Block"/>
+							<core:Item  text="Grid Large"
+								key="GridLarge"/>
+							<core:Item  text="Grid Small"
+								key="GridSmall"/>
+						</items>
+					</ComboBox>
+					<Label text="Sticky options:" />
+					<CheckBox text="ColumnHeaders"
+						select="onSelect"/>
+					<CheckBox text="HeaderToolbar"
+						select="onSelect"/>
+					<CheckBox text="InfoToolbar"
+						select="onSelect"/>
+					<ToggleButton id="toggleInfoToolbar"
+						text="Hide/Show InfoToolbar"
+						press="onToggleInfoToolbar" />
+				</content>
+			</OverflowToolbar>
+		</headerToolbar>
+                        <infoToolbar>
+			<OverflowToolbar>
+				<Label text="Wide range of available products"/>
+			</OverflowToolbar>
+		</infoToolbar>
+		<columns>
+			<Column
+				width="12em">
+				<Text text="Product" />
+			</Column>
+			<Column
+				minScreenWidth="Tablet"
+				demandPopin="true">
+				<Text text="Supplier" />
+			</Column>
+			<Column
+				minScreenWidth="Desktop"
+				demandPopin="true"
+				hAlign="End">
+				<Text text="Dimensions" />
+			</Column>
+			<Column
+				minScreenWidth="Desktop"
+				demandPopin="true"
+				hAlign="Center">
+				<Text text="Weight" />
+			</Column>
+			<Column
+				hAlign="End">
+				<Text text="Price" />
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem>
+				<cells>
+					<ObjectIdentifier
+						title="{Id}"
+						text="{SubCategoryId}"/>
+					<Text
+						text="{SupplierName}" />
+					<Text
+						text="{DimensionWidth} x {DimensionDepth} x {DimensionHeight} {DimensionUnit}" />
+
+					<ObjectNumber
+						number="{WeightMeasure}"
+						unit="{'WeightUnit',
+						
+						formatter:'ux.shopproducts.util.Formatter.Measure'
+                    
+						}"
+						state="{path:'WeightUnit',
+						
+						formatter:'ux.shopproducts.util.Formatter.MeasureState'
+                        
+						}" />
+					<ObjectNumber
+							number="{
+								parts:[{path:'Price'},{path:'CurrencyCode'}],
+								type: 'sap.ui.model.type.Currency',
+								formatOptions: {showMeasure: false}
+							}"
+							unit="{CurrencyCode}" />
+				</cells>
+			</ColumnListItem>
+		</items>
+                 </Table>
+               
+                    	
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>
